@@ -7,6 +7,7 @@ class BookSearch extends Component{
     static propTypes = {
         moveBook: PropTypes.func.isRequired,
         history: PropTypes.object.isRequired,
+        currentBooks: PropTypes.array.isRequired
     }
     state={
         search:'',
@@ -30,7 +31,14 @@ class BookSearch extends Component{
             .then((books)=>{
                 if(!books.error){
                     this.setState({ 
-                        books,
+                        books:books.map(b => {
+                            const tempbook = Object.assign({}, b);
+                            const book=this.props.currentBooks.find(book=>book.id===b.id)
+                            if(book){
+                                tempbook.shelf=book.shelf;
+                            }
+                            return tempbook;
+                          }),
                         showEmpty:false 
                     });
                 }else{
