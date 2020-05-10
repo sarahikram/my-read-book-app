@@ -34,4 +34,4 @@ Books.propTypes = {
     books: PropTypes.array.isRequired,
     moveBook: PropTypes.func.isRequired,
 }
-export default Books;
+export default React.memo(Books);

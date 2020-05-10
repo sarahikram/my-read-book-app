@@ -11,13 +11,9 @@ class BooksApp extends React.Component {
     books:[],
     shelfs:shelfs
   }
-  componentDidMount() {
-    BooksAPI.getAll()
-      .then((books) => {
-        this.setState( {
-          books
-        })
-      })
+  async componentDidMount() {
+    const books = await BooksAPI.getAll()
+    this.setState({ books })
   }
 
   shelfBooks=(shelf)=>{
@@ -63,7 +59,8 @@ class BooksApp extends React.Component {
           <Route exact path='/search' render={({history}) => (
             <BookSearch 
               history={history}
-              moveBook={this.moveBook} 
+              moveBook={this.moveBook}
+              currentBooks={this.state.books} 
             />
             )} />
           
